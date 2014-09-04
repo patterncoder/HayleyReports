@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Report xmlns="http://oldtowndining.com/schemas"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://oldtowndining.com/schemas ReportSchema.xsd" >
+
+  
+  
+  <Layout>
+    <Margin-Top>96</Margin-Top>
+    <Margin-Bottom>72</Margin-Bottom>
+    <Margin-Left>36</Margin-Left>
+    <Margin-Right>36</Margin-Right>
+    <Orientation>Portrait</Orientation>
+    <Page-Size>Letter</Page-Size>
+  </Layout>
+  <Head>
+    <Name>Employees with Shifts</Name>
+    <Title>Old Town Dining, LLC</Title>
+    <Description>Scheduled non-terminated employees</Description>
+    <Connection>OTDSiteSqlServer</Connection>
+  </Head>
+  <Body>
+
+    <DataTable DataSource="select id, obj_num, last_name + ', ' + first_name as name,
+(Select COUNT (*) from sw.time_clock_schedule tcs where
+tcs.employee_id = e.id)  as shifts
+ from sw.employees e where termination_date is null
+ order by obj_num" columnCount="3"  tableWidth="540" tableAlign="left"
+                columnWidths="1;1;1">
+      <Row>
+        <Cell  binding="{obj_num}"/>
+        <Cell  binding="{name}"/>
+        <Cell  binding="{shifts}"/>
+      </Row>
+    </DataTable>
+    
+    
+  </Body>
+  
+</Report>

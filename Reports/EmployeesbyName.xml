@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Report xmlns="http://oldtowndining.com/schemas"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://oldtowndining.com/schemas ReportSchema.xsd" >
+
+  
+  
+  <Layout>
+    <Margin-Top>96</Margin-Top>
+    <Margin-Bottom>72</Margin-Bottom>
+    <Margin-Left>36</Margin-Left>
+    <Margin-Right>36</Margin-Right>
+    <Orientation>Portrait</Orientation>
+    <Page-Size>Letter</Page-Size>
+  </Layout>
+  <Head>
+    <Name>Current Employees</Name>
+    <Title>Old Town Dining, LLC</Title>
+    <Description>Listed by name</Description>
+    <Connection>OTDSiteSqlServer</Connection>
+  </Head>
+  <Body>
+
+    <DataTable DataSource="select id, obj_num, last_name + ', ' + first_name as name
+
+ from sw.employees e where termination_date is null
+ order by name" columnCount="2"  tableWidth="540" tableAlign="left"
+                columnWidths="1;6">
+      <Row>
+        <Cell  binding="{obj_num}" Border="bottom" FontSize="14" Padding="5"/>
+        <Cell  binding="{name}" Border="bottom" FontSize="14" Padding="5"/>
+        
+      </Row>
+    </DataTable>
+    
+    
+  </Body>
+  
+</Report>

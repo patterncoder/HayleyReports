@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Report xmlns="http://oldtowndining.com/schemas"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://oldtowndining.com/schemas ReportSchema.xsd" >
+  
+  <Parameters>
+    <Parameter Name="@emp_id" ParameterType="Int" ValidationText="Employee Number"/>
+  </Parameters>
+  
+  <Layout>
+    <Margin-Top>96</Margin-Top>
+    <Margin-Bottom>72</Margin-Bottom>
+    <Margin-Left>36</Margin-Left>
+    <Margin-Right>36</Margin-Right>
+    <Orientation>Portrait</Orientation>
+    <Page-Size>Letter</Page-Size>
+    <PageEvent>TwoColumnHeaderFooter</PageEvent>
+  </Layout>
+  <Head>
+    <Name>Employee Policies</Name>
+    <Title>Old Town Dining, LLC</Title>
+    <Description>Assinged policies and acknowledgement.</Description>
+    <Connection>OTDSiteSqlServer</Connection>
+  </Head>
+  <Body>
+    <Image Source="~/DesktopModules/HayleyReports/Reports/logootd.gif" PercentScaleX="15" PercentScaleY="15" PositionX="30" PositionY="850"/>
+    <DataTable DataSource="select obj_num, first_name + ' ' + last_name as name from sw.employees where id = @emp_id"
+                columnCount="1"
+                columnWidths="1"
+                tableWidth="200"  tableAlign="right"  SpacingAfter="18">
+      <Row>
+        <Cell  binding="#{obj_num}" Align="right"  Border="none" FontSize="14" FontStyle="italic" ></Cell>
+        
+      </Row>
+      <Row>
+        <Cell  binding="{name}"  Align="right" Border="none" FontSize="12" FontStyle="italic" ></Cell>
+
+      </Row>
+      
+    </DataTable>
+    <Text> 
+      
+    </Text>
+    <DataTable DataSource="WITH    rows AS
+        (
+        select ep.policy_id, ep.employee_id,
+ep.assigned_date, ep.acknowledge_date, ep.acknowledged, p.title,
+ ROW_NUMBER() OVER (ORDER BY acknowledge_date, p.title) AS rn
+	
+ from sw.employee_policies ep
+  inner join sw.policies p on ep.policy_id = p.id
+ where employee_id = @emp_id
+        )
+        SELECT  mc.rn, mc.acknowledged, mc.assigned_date,
+        mc.acknowledge_date, mc.policy_id, mc.title, 
+        ABS(DATEDIFF(second, mc.acknowledge_date, mp.acknowledge_date)) as elapsed
+
+FROM    rows mc
+JOIN    rows mp
+ON      mc.rn = mp.rn + 1"
+                columnCount="5"
+                columnWidths="1;1;1;1;1"
+                tableWidth="540"  tableAlign="right">
+      <Row>
+        <Cell  binding="{title}" Border="bottom" Header="Policy Title" ></Cell>
+        <Cell binding="{assigned_date}"  Align="right"  Border="bottom"  Header="Date Assigned"></Cell>
+        <Cell binding="{acknowledge_date}"  Align="right"  Border="bottom"  Header="Date Acknowledged"></Cell>
+        <Cell binding="{acknowledged}" Align="right" Border="bottom"  Header="Acknowledged" ></Cell>
+        <Cell binding="{elapsed}" Header="Elapsed"></Cell>
+      </Row>
+
+    </DataTable>
+    
+    
+    
+  </Body>
+  
+</Report>

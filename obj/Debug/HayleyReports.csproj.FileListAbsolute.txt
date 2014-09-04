@@ -1,0 +1,22 @@
+C:\inetpub\dnndev_561\DesktopModules\HayleyReports\bin\HayleyReports.dll
+C:\inetpub\dnndev_561\DesktopModules\HayleyReports\bin\HayleyReports.pdb
+C:\inetpub\dnndev_561\DesktopModules\HayleyReports\obj\Debug\HayleyReports.dll
+C:\inetpub\dnndev_561\DesktopModules\HayleyReports\obj\Debug\HayleyReports.pdb
+C:\inetpub\dnndev_561\DesktopModules\HayleyReports\obj\Debug\HayleyReports.csprojResolveAssemblyReference.cache
+C:\inetpub\dnndev_561\DesktopModules\HayleyReports\bin\DotNetNuke.dll
+C:\inetpub\dnndev_561\DesktopModules\HayleyReports\bin\InfojectiveReports.dll
+C:\inetpub\dnndev_561\DesktopModules\HayleyReports\bin\itextsharp.dll
+C:\inetpub\dnndev_561\DesktopModules\HayleyReports\bin\SharpZipLib.dll
+C:\inetpub\dnndev_561\DesktopModules\HayleyReports\bin\DotNetNuke.WebControls.dll
+C:\inetpub\dnndev_561\DesktopModules\HayleyReports\bin\DotNetNuke.Services.Syndication.dll
+C:\inetpub\dnndev_561\DesktopModules\HayleyReports\bin\DotNetNuke.WebUtility.dll
+C:\inetpub\dnndev_561\DesktopModules\HayleyReports\bin\CountryListBox.dll
+C:\inetpub\dnndev_561\DesktopModules\HayleyReports\bin\InfojectiveReports.pdb
+C:\inetpub\dnndev_561\bin\HayleyReports.dll
+C:\inetpub\dnndev_561\bin\HayleyReports.pdb
+C:\Users\patterncoder\Documents\Visual Studio 2010\Projects\HayleyReports\obj\Debug\HayleyReports.csprojResolveAssemblyReference.cache
+C:\Users\patterncoder\Documents\Visual Studio 2010\Projects\HayleyReports\obj\Debug\HayleyReports.dll
+C:\Users\patterncoder\Documents\Visual Studio 2010\Projects\HayleyReports\obj\Debug\HayleyReports.pdb
+C:\Users\patterncoder\Documents\Visual Studio 2010\bin\HayleyReports.dll.config
+C:\Users\patterncoder\Documents\Visual Studio 2010\bin\HayleyReports.dll
+C:\Users\patterncoder\Documents\Visual Studio 2010\bin\HayleyReports.pdb

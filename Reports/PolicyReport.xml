@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Report xmlns="http://oldtowndining.com/schemas"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://oldtowndining.com/schemas ReportSchema.xsd" >
+
+  <Parameters>
+    <Parameter Name="@id" ParameterType="int" ValidationText="Enter the policy id "/>
+   
+  </Parameters>
+  
+  <Layout>
+    <Margin-Top>96</Margin-Top>
+    <Margin-Bottom>72</Margin-Bottom>
+    <Margin-Left>36</Margin-Left>
+    <Margin-Right>36</Margin-Right>
+    <Orientation>Portrait</Orientation>
+    <Page-Size>Letter</Page-Size>
+    <PageEvent>TwoColumnHeaderFooter</PageEvent>
+  </Layout>
+  <Head>
+    <Name>Single Policy Printing</Name>
+    <Title>Old Town Dining, LLC</Title>
+    <Description>Individual policies may not convey all pertinent information.</Description>
+    <Connection>OTDSiteSqlServer</Connection>
+  </Head>
+  <Body>
+
+    
+    
+
+    <HTMLSnippet DataSource="select id, title, policy_text from sw.policies where id = @id">
+      <StyleSheet>
+      <TagStyle TagName="p" Property="face" Value="times-roman"/>
+      <TagStyle TagName="p" Property="leading" Value="14"/>
+      <TagStyle TagName="ul" Property="indent" Value="30"/>
+      <TagStyle TagName="li" Property="leading" Value="14"/>
+      <TagStyle TagName="li" Property="face" Value="times-roman"/>
+      <TagStyle TagName="p" Property="SpacingAfter" Value="10"/>
+      <TagStyle TagName="li" Property="SpacingAfter" Value="10"/>
+      </StyleSheet>
+      <Elements>
+        <Paragraph Binding="{title}"/>
+        <Snippet Binding="{policy_text}"/>
+      </Elements>
+      
+    </HTMLSnippet>
+    
+    
+  </Body>
+  
+</Report>

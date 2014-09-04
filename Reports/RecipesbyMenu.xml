@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Report xmlns="http://oldtowndining.com/schemas"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://oldtowndining.com/schemas ReportSchema.xsd" >
+  
+  <Parameters>
+    <Parameter Name="@rec_id" ParameterType="Int" ValidationText="Enter the Recipe ID"/>
+  </Parameters>
+  
+  <Layout>
+    <Margin-Top>54</Margin-Top>
+    <Margin-Bottom>36</Margin-Bottom>
+    <Margin-Left>18</Margin-Left>
+    <Margin-Right>414</Margin-Right>
+    <Orientation>Landscape</Orientation>
+    <Page-Size>Letter</Page-Size>
+    <PageEvent>RecipeHeader</PageEvent>
+  </Layout>
+  <Head>
+    <Name>Recipe Card</Name>
+    <Title>Old Town Dining, LLC</Title>
+    <Description></Description>
+    <Connection>OTDSiteSqlServer</Connection>
+  </Head>
+  <Body>
+    <HTMLSnippet DataSource="Select recLName from oldtowndining.tblRecipes where RecipeId = @rec_id">
+      <Elements>
+        <Paragraph Binding="{recLName}" SpacingAfter="10"  />
+      </Elements>
+      <StyleSheet>
+        <TagStyle TagName="p" Property="face" Value="times-roman"/>
+        
+       
+      </StyleSheet>
+    </HTMLSnippet>
+    <DataTable DataSource="select rid.RecipeID,
+ 'I' as Type,
+  rid.IngID as ID,
+   rid.RecAmount as Amount,
+    u.UnitName as Unit,
+     i.IngLName as Ingredient,
+      rid.RecQual as Preparation
+
+ from oldtowndining.tblRecipeIngDet rid inner join
+ oldtowndining.tblIngredients i on rid.IngID = i.IngID
+ inner join oldtowndining.tblUnits u on rid.UnitID = u.UnitID
+
+
+where RecipeID = @rec_id
+
+union
+
+select rrd.RecRecipeID,
+ 'R' as Type, 
+ rrd.RecipeParentID as ID,
+ rrd.RecRecAmount, 
+ u.UnitName,
+ r.RecLName + '*', 
+ rrd.RecRecQual
+from oldtowndining.tblRecipeRecDet rrd
+inner join oldtowndining.tblRecipes r on
+rrd.RecipeID = r.RecipeID
+inner join oldtowndining.tblUnits u on
+r.RecPort = u.UnitID
+
+where rrd.RecipeParentID = @rec_id" columnCount="4" columnWidths="1;2;3;3" tableWidth="360"  >
+
+      <Row>
+        <Cell binding="{Amount}" Header="Quan" Border="bottom"/>
+        <Cell binding="{Unit}" Header="Unit" Border="bottom"/>
+        <Cell binding="{Ingredient}" Header="Ingredient" Border="bottom"/>
+        <Cell binding="{Preparation}" Header="Special Prep" Border="bottom"/>
+      </Row>
+    </DataTable>
+    <Text FontSize="8" SpacingAfter="5" >* Sub recipe made by Old Town Dining</Text>
+    <Text FontSize="12"  FontFamily="helvetica">Directions</Text>
+    <HTMLSnippet DataSource="select r.RecLName, r.RecStorage, r.RecDirec from oldtowndining.tblRecipes r where r.RecipeID = @rec_id">
+      <Elements>
+        
+        
+        
+        <Snippet Binding="{RecDirec}"/>
+        <!--<Paragraph Binding="{RecStorage}" SpacingAfter="20" />-->
+      </Elements>
+      <StyleSheet>
+        <TagStyle TagName="p" Property="face" Value="times-roman"/>
+        <TagStyle TagName="p" Property="leading" Value="14"/>
+        <TagStyle TagName="p" Property="size" Value="14"/>
+        <TagStyle TagName="ul" Property="indent" Value="0"/>
+        <TagStyle TagName="li" Property="leading" Value="14"/>
+        <TagStyle TagName="li" Property="face" Value="times-roman"/>
+        <TagStyle TagName="p" Property="SpacingAfter" Value="20"/>
+        <TagStyle TagName="li" Property="SpacingAfter" Value="5"/>
+      </StyleSheet>
+    </HTMLSnippet>
+
+    
+    
+    
+  </Body>
+  
+</Report>

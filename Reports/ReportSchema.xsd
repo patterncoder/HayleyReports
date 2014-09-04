@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ReportSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        targetNamespace ="http://oldtowndining.com/schemas"
+           xmlns="http://oldtowndining.com/schemas"
+           elementFormDefault="qualified">
+
+  <xs:element name="Report">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Parameters"  >
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Parameter" minOccurs="0"  maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="Name" type="xs:string"></xs:attribute>
+                  <xs:attribute name="ParameterType" type="xs:string"></xs:attribute>
+                  <xs:attribute name="ValidationText" type="xs:string"></xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Layout">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Margin-Top" default="72"></xs:element>
+              <xs:element name="Margin-Bottom" default="36"></xs:element>
+              <xs:element name="Margin-Left" default="36"></xs:element>
+              <xs:element name="Margin-Right" default="36"></xs:element>
+              <xs:element name="Orientation" default="Portrait"></xs:element>
+              <xs:element name="Page-Size" default="Letter"></xs:element>
+              <xs:element name="PageEvent" default="TwoColumnHeaderFooter"></xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Head">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name"></xs:element>
+              <xs:element name="Title"></xs:element>
+              <xs:element name="Description"></xs:element>
+              <xs:element name="Connection"></xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Body">
+          <xs:complexType>
+            
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              
+              <xs:element name="Text" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="SpacingBefore" type="xs:decimal" use="optional" ></xs:attribute>
+                      <xs:attribute name="SpacingAfter" type="xs:decimal" use="optional" ></xs:attribute>
+                      <xs:attribute name="FontFamily" use="optional">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:enumeration value="times_roman"/>
+                            <xs:enumeration value="helvetica"/>
+                            <xs:enumeration value="courier"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="FontStyle" use="optional">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:enumeration value="normal"/>
+                            <xs:enumeration value="italic"/>
+                            <xs:enumeration value="bold"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="FontSize" use="optional">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:enumeration value="8"/>
+                            <xs:enumeration value="10"/>
+                            <xs:enumeration value="12"/>
+                            <xs:enumeration value="14"/>
+                            <xs:enumeration value="16"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="FontColor" use="optional">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:enumeration value="black"/>
+                            <xs:enumeration value="red"/>
+                            <xs:enumeration value="green"/>
+                            <xs:enumeration value="blue"/>
+                            <xs:enumeration value="grey"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+
+              <xs:element name="Image" minOccurs="0" >
+                <xs:complexType>
+                  <xs:attribute name="Source" type="xs:string"></xs:attribute>
+                  <xs:attribute name="PositionX" type="xs:decimal"  use="optional"></xs:attribute>
+                  <xs:attribute name="PositionY" type="xs:decimal" use="optional"></xs:attribute>
+                  <xs:attribute name="PercentScaleX" type="xs:decimal" use="optional"></xs:attribute>
+                  <xs:attribute name="PercentScaleY" type="xs:decimal" use="optional"></xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              
+              
+              <xs:element name="HTMLSnippet" minOccurs="0" maxOccurs="unbounded">
+                
+                <xs:complexType>
+                  
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="StyleSheet" minOccurs="1">
+                      <xs:complexType>
+                        <xs:choice minOccurs="0" maxOccurs="unbounded">
+                          <xs:element name="ClassStyle">
+                            <xs:complexType>
+                              <xs:attribute name="ClassName" type="xs:string" use="required"></xs:attribute>
+                              <xs:attribute name="Property" type="xs:string" use="required"></xs:attribute>
+                              <xs:attribute name="Value" type="xs:string" use="required"></xs:attribute>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="TagStyle" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:attribute name="TagName" type="xs:string" use="required"></xs:attribute>
+                              <xs:attribute name="Property" type="xs:string" use="required"></xs:attribute>
+                              <xs:attribute name="Value" type="xs:string" use="required"></xs:attribute>
+                        
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:choice>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Elements">
+                      <xs:complexType>
+                        <xs:choice minOccurs="1" maxOccurs="unbounded">
+                                  <xs:element name="Paragraph">
+                                  <xs:complexType>
+                                    <xs:attribute name="Binding" type="xs:string" use="required"></xs:attribute>
+                                    <xs:attribute name="SpacingBefore" type="xs:decimal" use="optional" ></xs:attribute>
+                                    <xs:attribute name="SpacingAfter" type="xs:decimal" use="optional" ></xs:attribute>
+                                  </xs:complexType>
+                            </xs:element>
+                                  <xs:element name="Snippet">
+                                    <xs:complexType>
+                                      <xs:attribute name="Binding" type="xs:string" use="required"></xs:attribute>
+                                    </xs:complexType>
+                                  </xs:element>
+                        </xs:choice>
+                      </xs:complexType>
+                    </xs:element>
+                    
+                  </xs:choice>
+                  
+                  <xs:attribute name="DataSource" type="xs:string"></xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              
+              
+              <xs:element name="DataTable" minOccurs="0"    >
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Row" maxOccurs="unbounded" >
+                      <xs:complexType>
+                        <xs:sequence maxOccurs="unbounded">
+                          <xs:element name="Cell">
+                            <xs:complexType>
+                              <xs:attribute name="colSpan" type="xs:string"  ></xs:attribute>
+                              <xs:attribute name="borderWidth" type="xs:string" use="optional"></xs:attribute>
+                              <xs:attribute name="binding" type="xs:string" use="required"></xs:attribute>
+                              <xs:attribute name="Padding" type="xs:string" use="optional"></xs:attribute>
+                              <xs:attribute name="Header" type="xs:string" use="optional"></xs:attribute>
+                              <xs:attribute name="FontFamily" use="optional">
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string">
+                                    <xs:enumeration value="times_roman"/>
+                                    <xs:enumeration value="helvetica"/>
+                                    <xs:enumeration value="courier"/>
+                                  </xs:restriction>
+                                </xs:simpleType>
+                              </xs:attribute>
+                              <xs:attribute name="FontStyle" use="optional">
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string">
+                                    <xs:enumeration value="normal"/>
+                                    <xs:enumeration value="italic"/>
+                                    <xs:enumeration value="bold"/>
+                                  </xs:restriction>
+                                </xs:simpleType>
+                              </xs:attribute>
+                              <xs:attribute name="FontSize" use="optional">
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string">
+                                    <xs:enumeration value="8"/>
+                                    <xs:enumeration value="10"/>
+                                    <xs:enumeration value="12"/>
+                                    <xs:enumeration value="14"/>
+                                    <xs:enumeration value="16"/>
+                                  </xs:restriction>
+                                </xs:simpleType>
+                              </xs:attribute>
+                              <xs:attribute name="FontColor" use="optional">
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string">
+                                    <xs:enumeration value="black"/>
+                                    <xs:enumeration value="red"/>
+                                    <xs:enumeration value="green"/>
+                                    <xs:enumeration value="blue"/>
+                                    <xs:enumeration value="grey"/>
+                                  </xs:restriction>
+                                </xs:simpleType>
+                              </xs:attribute>
+                              <xs:attribute name="Align"  use="optional">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:enumeration value="left"/>
+                                  <xs:enumeration value="right"/>
+                                  <xs:enumeration value="center"/>
+                                </xs:restriction>
+                              </xs:simpleType></xs:attribute>
+                              <xs:attribute name="VerticalAlign"  use="optional">
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string">
+                                    <xs:enumeration value="top"/>
+                                    <xs:enumeration value="middle"/>
+                                    <xs:enumeration value="bottom"/>
+                                  </xs:restriction>
+                                </xs:simpleType>
+                              </xs:attribute>
+                              <xs:attribute name="Border"  use="optional">
+                                <xs:simpleType>
+                                  <xs:restriction base="xs:string">
+                                    <xs:enumeration value="left"/>
+                                    <xs:enumeration value="right"/>
+                                    <xs:enumeration value="top"/>
+                                    <xs:enumeration value="bottom"/>
+                                    <xs:enumeration value="box"/>
+                                    <xs:enumeration value="none"/>
+                                  </xs:restriction>
+                                </xs:simpleType>
+                              </xs:attribute>
+
+                              
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="DataSource" type="xs:string" use="required" ></xs:attribute>
+                  <xs:attribute name="columnCount" type="xs:string" use="required" ></xs:attribute>
+                  <xs:attribute name="tableWidth" type="xs:string" use="optional" ></xs:attribute>
+                  <xs:attribute name="SpacingBefore" type="xs:decimal" use="optional" ></xs:attribute>
+                  <xs:attribute name="SpacingAfter" type="xs:decimal" use="optional" ></xs:attribute>
+                  <xs:attribute name="columnWidths" type="xs:string" use="required" ></xs:attribute>
+                  <xs:attribute name="tableAlign"  use="optional">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="left"/>
+                        <xs:enumeration value="right"/>
+                        <xs:enumeration value="center"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                </xs:complexType>
+                
+              </xs:element>
+                
+            </xs:choice>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+ 
+</xs:schema>

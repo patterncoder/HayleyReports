@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Report xmlns="http://oldtowndining.com/schemas"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://oldtowndining.com/schemas ReportSchema.xsd" >
+  
+  <Parameters>
+    <Parameter Name="@emp_seq" ParameterType="Int" ValidationText="Enter the beginning emp_seq."/>
+  </Parameters>
+  
+  <Layout>
+    <Margin-Top>144</Margin-Top>
+    <Margin-Bottom>72</Margin-Bottom>
+    <Margin-Left>72</Margin-Left>
+    <Margin-Right>72</Margin-Right>
+    <Orientation>Portrait</Orientation>
+    <Page-Size>Letter</Page-Size>
+  </Layout>
+  <Head>
+    <Name>Employee Logins</Name>
+    <Title>Employee Logins</Title>
+    <Description>Employee logins for these dates.</Description>
+    <Connection>OTDSiteSqlServer</Connection>
+  </Head>
+  <Body>
+    <Text>Slerbage</Text>
+    <DataTable DataSource="select emp_seq, last_name + ', ' + first_name as name, sign_in_code from sw.employees where emp_seq > @emp_seq order by last_name, first_name"
+                columnCount="2"
+                columnWidths="1;5"
+                tableWidth="468"
+                tableAlign="center">
+      <Row>
+        <Cell FontSize="16" Padding="10" Align="left" Border="box" binding="{emp_seq}" colSpan="1" borderWidth="1"></Cell>
+        <Cell Padding="10" Align="left" Border="box" binding="{name}" colSpan="1" borderWidth="1"></Cell>
+        
+        
+        
+        
+        
+      </Row>
+      
+    </DataTable>
+    <Text>Some more text here.</Text>
+    
+    
+  </Body>
+  
+</Report>
